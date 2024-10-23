@@ -32,7 +32,14 @@ RUN if [ -f "/opt/RetrievalAugmentedGeneration/example/requirements.txt" ] ; the
     pip3 install --no-cache-dir -r /opt/RetrievalAugmentedGeneration/example/requirements.txt ; else \
     echo "Skipping example dependency installation, since requirements.txt was not found" ; \
     fi
-RUN python3.10 -m nltk.downloader averaged_perceptron_tagger
+RUN python3.10 -m nltk.downloader averaged_perceptron_tagger_eng
+RUN python3.10 -m nltk.downloader punkt_tab
+
+#Stuff I added
+
+RUN apt-get update && apt-get install -y tesseract-ocr
+RUN apt-get update && apt-get install -y poppler-utils
+
 
 RUN if [ "${EXAMPLE_NAME}" = "multimodal_rag" ] ; then \
     apt update && \

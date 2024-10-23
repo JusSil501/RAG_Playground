@@ -38,13 +38,13 @@ services:
     expose:
     - "8081"
     shm_size: 5gb
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
 
   rag-playground:
     container_name: rag-playground

@@ -54,12 +54,12 @@ services:
 
   milvus:
     container_name: milvus-standalone
-    image: milvusdb/milvus:v2.4.4-gpu
+    image: milvusdb/milvus:v2.4.4
     command: ["milvus", "run", "standalone"]
     environment:
       ETCD_ENDPOINTS: etcd:2379
       MINIO_ADDRESS: minio:9010
-      KNOWHERE_GPU_MEM_POOL_SIZE: 2048;4096
+      # KNOWHERE_GPU_MEM_POOL_SIZE: 2048;4096
     volumes:
       - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/milvus:/var/lib/milvus
     # healthcheck:
@@ -74,13 +74,13 @@ services:
     depends_on:
       - "etcd"
       - "minio"
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: ["gpu"]
-              device_ids: ['${VECTORSTORE_GPU_DEVICE_ID:-0}']
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           capabilities: ["gpu"]
+    #           device_ids: ['${VECTORSTORE_GPU_DEVICE_ID:-0}']
     profiles: ["llm-embedding", "nemo-retriever"]
 
   elasticsearch:
